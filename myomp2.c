@@ -14,9 +14,9 @@ int main(){
   answer = 0;
 #pragma omp parallel
 { 
- #pragma omp for private(j,t) reduction(+:answer)
-  for(i=L; i<=R; i++){
+ #pragma omp for private(j,t) reduction(+:answer) schedule(dynamic,1)
 
+  for(i=L; i<=R; i++){
   t = i;
   for(j=2; j*j<=i; j++){
      if(i%j==0){
@@ -26,7 +26,6 @@ int main(){
     }
     answer += t;
   }
-
 }
 
   t2 = omp_get_wtime();
